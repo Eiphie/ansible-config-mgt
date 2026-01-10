@@ -105,6 +105,10 @@ ansible-playbook -i inventory/dev playbooks/common.yml
 ```
 
 ### Verify Ansible successfully installed wireshark in each server
+![Screenshot 2026-01-10 at 22 42 20](https://github.com/user-attachments/assets/dfaca3df-2147-4df5-bc1e-d1570c7101ca)
+
+![Screenshot 2026-01-10 at 22 42 20](https://github.com/user-attachments/assets/fc935723-f94c-460b-b072-cddb4f845d69)
+
 
 
 ## Running Ansible Playbook from Bastion Server
@@ -144,8 +148,13 @@ http://<jenkins-ip>:8080/github-webhook/
 - Push to GitHub
 - Jenkins pulls code through the webhook configured above
 - Verify Artifacts Saved
-- `ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/`
+```
+ssh -i <PATH_TO_EC2_PEM_FILE> ubuntu@<jenkins-ip>
+ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
+```
+<img width="1497" height="760" alt="Screenshot 2026-01-08 at 21 03 09" src="https://github.com/user-attachments/assets/aff507fb-1726-4967-b350-7ab4928865c7" />
 
+<img width="1012" height="524" alt="Screenshot 2026-01-10 at 23 56 26" src="https://github.com/user-attachments/assets/3303c2b5-b293-4119-9b54-0f940c52c339" />
 
 ### Run playbook
 
