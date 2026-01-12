@@ -105,7 +105,8 @@ ansible-playbook -i inventory/dev playbooks/common.yml
 ```
 
 ### Verify Ansible successfully installed wireshark in each server
-![Screenshot 2026-01-10 at 22 42 20](https://github.com/user-attachments/assets/dfaca3df-2147-4df5-bc1e-d1570c7101ca)
+
+![Screenshot 2026-01-10 at 22 42 54](https://github.com/user-attachments/assets/54f71d23-7197-466f-8042-0e7c061f86c6)
 
 ![Screenshot 2026-01-10 at 22 42 20](https://github.com/user-attachments/assets/fc935723-f94c-460b-b072-cddb4f845d69)
 
