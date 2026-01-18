@@ -163,3 +163,4 @@ ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
 cd /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
 ansible-playbook -i inventory/dev playbooks/common.yml
 ```
+
