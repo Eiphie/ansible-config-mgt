@@ -16,11 +16,10 @@
   hosts: lb
   remote_user: ubuntu
   become: true
-  become_user: root
   tasks:
     - name: delete wireshark
       apt:
-        name: wireshark-qt
+        name: wireshark
         state: absent
         autoremove: yes
         purge: yes
