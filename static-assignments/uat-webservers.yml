@@ -2,4 +2,4 @@
 - name: update webservers
   hosts: uat-webservers
   roles:
-    - webserver
+    - webservers
