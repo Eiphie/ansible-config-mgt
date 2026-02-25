@@ -163,3 +163,58 @@ ls /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
 cd /var/lib/jenkins/jobs/ansible/builds/<build_number>/archive/
 ansible-playbook -i inventory/dev playbooks/common.yml
 ```
+
+## REFACTORING & STATIC ASSIGNMENT
+Create a new Freestyle Jenkins project named `save_artifacts`, which will be triggered on completion of the existing `ansible` Jenkins project.
+<img width="1095" height="967" alt="Screenshot 2026-02-25 at 12 22 19" src="https://github.com/user-attachments/assets/8037a5ff-c224-422a-a2a5-09dd5a1e068b" />
+
+Use ansible roles to separate configurations into different directories - to simplify project maintenance.
+
+```
+├── README.md
+├── ansible.cfg
+├── inventory
+│   ├── dev.ini
+│   ├── prod.ini
+│   ├── staging.ini
+│   └── uat.ini
+├── playbooks
+│   └── site.yml
+├── roles
+│   └── webservers
+│       ├── README.md
+│       └── tasks
+│           └── main.yml
+└── static-assignments
+    ├── common-del.yml
+    ├── common.yml
+    └── uat-webservers.yml
+```
+
+Update the files using this project contents.  
+
+- SSH to Jenkins EC2 and update permissions to enable file copy and command executions
+```
+chmod 755 /home/ubuntu
+chmod 755 /home/ubuntu/ansible-config-artifact
+```
+- Commit and push the changes to github.
+- Github webhook will trigger Jenkins `ansible` project to clone the repo and save it to Jenkins artifact directory.
+- Jenins `save_artifact` project will trigger on completion of the  `ansible` job. This copies the cloned repo into the `/home/ubuntu/ansible-config-artifact` path on your Jenkins EC2 instance.
+- SSH into the Jenkins EC2 instance and confirm the project is present under `/home/ubuntu/ansible-config-artifact`
+- Run the playbook to uninstall `wireshark` from the `dev` webservers and setup php website on the `uat` `webservers`
+```
+ansible-playbook -i inventory/dev.ini playbooks/site.yml
+ansible-playbook -i inventory/uat.ini playbooks/site.yml
+```
+`DEV:`
+<img width="1197" height="578" alt="Screenshot 2026-02-23 at 00 24 33" src="https://github.com/user-attachments/assets/b3318947-525d-45cc-adfb-a1c68e25a806" />
+
+<img width="1464" height="95" alt="Screenshot 2026-02-23 at 00 26 37" src="https://github.com/user-attachments/assets/52c4a79f-005c-4208-af06-cb5e37a79e8c" />
+
+`UAT:`
+<img width="1187" height="733" alt="Screenshot 2026-02-25 at 12 00 46" src="https://github.com/user-attachments/assets/a29c8849-9977-4a41-93ae-7433d9819b35" />
+
+<img width="1647" height="920" alt="Screenshot 2026-02-25 at 12 48 55" src="https://github.com/user-attachments/assets/894df961-5d3f-425d-af47-9e9fa6aba352" />
+
+<img width="1632" height="1031" alt="Screenshot 2026-02-25 at 12 49 33" src="https://github.com/user-attachments/assets/24b5ef55-739f-4131-b2a7-24b4202554d1" />
